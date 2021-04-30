@@ -12,15 +12,13 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { flow } from 'lodash';
+import React, { ReactNode } from 'react';
 import {
   WithNodeKeyProps,
   withSidecarNodes,
   withNode,
   withNodeKey,
   withChild,
-  ifToggledOn,
   asReadOnly,
 } from '@bodiless/core';
 import { withoutLinkWhenLinkDataEmpty } from '@bodiless/components';
@@ -31,6 +29,7 @@ import {
   useIsBreadcrumbItemCurrentPage,
 } from '@bodiless/navigation';
 import {
+  flowIf,
   asToken,
   addClasses,
   addProps,
@@ -48,17 +47,17 @@ import {
 } from '../Elements.token';
 
 const HomeBreadcrumbIcon = asToken(
-  addProps({ children: 'home' }),
+  addProps({ children: 'home' as ReactNode }),
   addClasses('material-icons'),
 )(Span);
 
 const withStartingTrailIcon = (
   nodeKeys?: WithNodeKeyProps,
-) => flow(
+) => asToken(
   withBreadcrumbStartingTrail,
   withDesign({
     StartingTrail: replaceWith(
-      flow(
+      asToken(
         withChild(HomeBreadcrumbIcon),
         withSidecarNodes(
           asEditableLink('link'),
@@ -84,12 +83,12 @@ const withReadOnlyStartingTrail = withDesign({
 });
 
 const withBoldedFinalTrail = withDesign({
-  Item: ifToggledOn(({ isCurrentPage }: any) => isCurrentPage)(asBold),
+  Item: flowIf(({ isCurrentPage }: any) => isCurrentPage)(asBold),
 });
 
-const withHiddenCurrentPageItem = flow(
+const withHiddenCurrentPageItem = asToken(
   withDesign({
-    Item: ifToggledOn(useIsBreadcrumbItemCurrentPage)(replaceWith(() => <></>)),
+    Item: flowIf(useIsBreadcrumbItemCurrentPage)(replaceWith(() => <></>)),
   }),
   withoutBreadcrumbFinalTrail,
 );
@@ -111,7 +110,7 @@ const withSlashSeparator = withDesign({
 });
 
 const withAccessibleSeparator = withDesign({
-  Separator: flow(
+  Separator: asToken(
     addClasses('border-black border-r-2 h-4 mx-1.5 rotate-12 self-center transform'),
     withSeparator(''),
   ),
@@ -145,7 +144,7 @@ const $withBreadcrumbStyles = asToken(
   withArrowSeparator,
 );
 
-const asAccessibleBreadcrumbs = flow(
+const asAccessibleBreadcrumbs = asToken(
   asBaseAccessibleBreadcrumbs,
   withDesign({
     NavWrapper: addProps({
