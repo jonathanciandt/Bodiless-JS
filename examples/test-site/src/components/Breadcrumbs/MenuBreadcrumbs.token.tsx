@@ -46,6 +46,8 @@ import {
   asLink,
 } from '../Elements.token';
 
+const BREADCRUMB_ARIA_LABEL = 'Breadcrumb';
+
 const HomeBreadcrumbIcon = asToken(
   addProps({ children: 'home' as ReactNode }),
   addClasses('material-icons'),
@@ -148,7 +150,7 @@ const asAccessibleBreadcrumbs = asToken(
   asBaseAccessibleBreadcrumbs,
   withDesign({
     NavWrapper: addProps({
-      'aria-label': 'Breadcrumb',
+      'aria-label': BREADCRUMB_ARIA_LABEL,
     }),
   }),
 );
