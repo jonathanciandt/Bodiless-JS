@@ -118,7 +118,7 @@ const BreadcrumbStartComponents: BreadcrumbsComponents = {
     withoutProps(['position', 'isCurrentPage']),
     asComponent,
   )('li'),
-  Title: MenuTitle,
+  Title: withoutProps(['isCurrentPage'])(MenuTitle),
   FinalTrail: MenuTitle,
 };
 
