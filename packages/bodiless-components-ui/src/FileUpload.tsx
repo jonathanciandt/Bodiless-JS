@@ -15,7 +15,7 @@
 import React, { ComponentType } from 'react';
 import { flowRight } from 'lodash';
 import { FileUploadStatus } from '@bodiless/components';
-import type { FileUploadPickerUI, UploadStatusProps } from '@bodiless/components';
+import type { UploadStatusProps } from '@bodiless/components';
 import type { HOC } from '@bodiless/fclasses';
 import {
   addClasses,
@@ -106,7 +106,8 @@ const fileUploadUI = {
   UploadStatus,
 };
 
-const withUI = <P extends { ui: FileUploadPickerUI}>(ui: FileUploadPickerUI) => (
+type UI = { [key: string]: object };
+const withUI = <P extends UI>(ui: UI) => (
   Component: ComponentType<P>,
 ) => ({ ui: uiFromProp, ...rest }: P) => {
   const ui$ = merge(ui, uiFromProp);
