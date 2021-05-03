@@ -21,7 +21,8 @@ import {
   H1,
   Div,
 } from '@bodiless/fclasses';
-import { asLinkInANewTab } from '@bodiless/components';
+import { asLinkInANewTab, FileUploadStatus } from '@bodiless/components';
+import type { UploadStatusProps } from '@bodiless/components';
 import flow from 'lodash/flow';
 
 import Layout from '../../../components/Layout';
@@ -49,16 +50,38 @@ const CustomAllowedTypesLink = flow(
   asLink,
 )(A);
 
+const CUSTOM_FILE_REJECTED_MESSAGE = 'File type is not accepted, the acceptable file types are Word and PDFs';
+
+const CustomUploadStatus = ({ status, selectedFile }: UploadStatusProps) => {
+  let statusText;
+  switch (status) {
+    case FileUploadStatus.FileAccepted:
+      statusText = `File "${selectedFile}" selected`;
+      break;
+    case FileUploadStatus.FileRejected:
+      statusText = CUSTOM_FILE_REJECTED_MESSAGE;
+      break;
+    default:
+      statusText = '';
+  }
+  return (
+    <div>{statusText}</div>
+  );
+};
+
 const CustomValidationMessageLink = flow(
   asEditableLink('validationMessage'),
   addProps({
     ui: {
-      DragRejected: flow(
-        addClasses('bl-text-red'),
-        addProps({
-          children: 'File type is not accepted, the acceptable file types are Word and PDFs',
-        }),
-      )(Div),
+      fileUpload: {
+        DragRejected: flow(
+          addClasses('bl-text-red'),
+          addProps({
+            children: 'File type is not accepted, the acceptable file types are Word and PDFs',
+          }),
+        )(Div),
+        UploadStatus: CustomUploadStatus,
+      },
     },
   }),
   asLink,

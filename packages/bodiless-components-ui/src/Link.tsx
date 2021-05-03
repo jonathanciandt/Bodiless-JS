@@ -21,7 +21,9 @@ import { fileUploadUI, withUI } from './FileUpload';
 /* eslint-disable import/prefer-default-export */
 
 const asBodilessLink: AsBodilessLink = (nodeKey, defaultData, useOverrides) => flowRight(
-  withUI(fileUploadUI),
+  withUI({
+    fileUpload: fileUploadUI,
+  }),
   asBaseBodilessLink(nodeKey, defaultData, useOverrides),
   withoutProps(['ui']),
 );

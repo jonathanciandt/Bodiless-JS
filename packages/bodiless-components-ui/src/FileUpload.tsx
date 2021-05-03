@@ -14,7 +14,8 @@
 
 import React, { ComponentType } from 'react';
 import { flowRight } from 'lodash';
-import type { FileUploadPickerUI } from '@bodiless/components';
+import { FileUploadStatus } from '@bodiless/components';
+import type { FileUploadPickerUI, UploadStatusProps } from '@bodiless/components';
 import type { HOC } from '@bodiless/fclasses';
 import {
   addClasses,
@@ -23,6 +24,7 @@ import {
 } from '@bodiless/fclasses';
 import { Spinner } from '@bodiless/ui';
 import MaterialIcon from '@material/react-material-icon';
+import merge from 'lodash/merge';
 
 const withForwardedRefStart = (Component: ComponentType<any>) => {
   const WithForwardedRefStart = React.forwardRef((props, ref) => (
@@ -75,7 +77,22 @@ const UploadTimeout = () => (
 );
 const Uploading = () => <Spinner color="bl-bg-gray-800 bl-my-4" />;
 const UploadFinished = () => <div className="bl-text-center bl-text-lg bl-text-black">Done!</div>;
-const UploadStatus = ({ statusText } : { statusText: string; }) => <div>{statusText}</div>;
+const UploadStatus = ({ status, selectedFile }: UploadStatusProps) => {
+  let statusText;
+  switch (status) {
+    case FileUploadStatus.FileAccepted:
+      statusText = `File "${selectedFile}" selected`;
+      break;
+    case FileUploadStatus.FileRejected:
+      statusText = 'File type not accepted or too many, try again!';
+      break;
+    default:
+      statusText = '';
+  }
+  return (
+    <div>{statusText}</div>
+  );
+};
 
 const fileUploadUI = {
   MasterWrapper,
@@ -91,12 +108,9 @@ const fileUploadUI = {
 
 const withUI = <P extends { ui: FileUploadPickerUI}>(ui: FileUploadPickerUI) => (
   Component: ComponentType<P>,
-) => ({ ui: uiFromProp, ...rest }: any) => {
-  const ui$ = {
-    ...ui,
-    ...uiFromProp,
-  };
-  return <Component {...rest} ui={ui$} />;
+) => ({ ui: uiFromProp, ...rest }: P) => {
+  const ui$ = merge(ui, uiFromProp);
+  return <Component {...rest as P} ui={ui$} />;
 };
 
 export {

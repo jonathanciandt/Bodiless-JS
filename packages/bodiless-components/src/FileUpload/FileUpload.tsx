@@ -25,7 +25,16 @@ import { useNode } from '@bodiless/core';
 import { useDropzone } from 'react-dropzone';
 import BackendSave from '../BackendSave';
 
-type UploadStatusProps = HTMLProps<HTMLElement> & { statusText: string; };
+export enum FileUploadStatus {
+  Initial,
+  FileRejected,
+  FileAccepted,
+}
+
+export type UploadStatusProps = HTMLProps<HTMLElement> & {
+  status: FileUploadStatus;
+  selectedFile?: string;
+};
 
 // Controls the time spent on file upload
 const MaxTimeout:number = 10000;
@@ -50,6 +59,23 @@ export type FileUploadProps = {
 
 const errorLog = debug('fileUpload');
 
+const DefaultUploadStatus = ({ status, selectedFile }: UploadStatusProps) => {
+  let statusText;
+  switch (status) {
+    case FileUploadStatus.FileAccepted:
+      statusText = `File "${selectedFile}" selected`;
+      break;
+    case FileUploadStatus.FileRejected:
+      statusText = 'File type not accepted or too many, try again!';
+      break;
+    default:
+      statusText = '';
+  }
+  return (
+    <div>{statusText}</div>
+  );
+};
+
 const defaultFileUploadUI = {
   MasterWrapper: 'section',
   Wrapper: 'div',
@@ -59,11 +85,12 @@ const defaultFileUploadUI = {
   DragRejected: () => <div>File type not accepted or too many, try again!</div>,
   UploadTimeout: () => <div>Upload failed, please try again.</div>,
   UploadFinished: () => <div>Done!</div>,
-  UploadStatus: ({ statusText }: UploadStatusProps) => <div>{statusText}</div>,
+  UploadStatus: DefaultUploadStatus,
 };
 
 export const FileUpload: CT<FileUploadProps> = ({ fieldApi, ui = {}, accept }: FileUploadProps) => {
-  const [statusText, setStatusText] = useState('');
+  const [status, setStatus] = useState(FileUploadStatus.Initial);
+  const [selectedFile, setSelectedFile] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [isUploadTimeout, setIsUploadingTimeout] = useState(false);
   const [isUploadFinished, setIsUploadFinished] = useState(false);
@@ -92,13 +119,15 @@ export const FileUpload: CT<FileUploadProps> = ({ fieldApi, ui = {}, accept }: F
     // When files are rejected by the react-dropzone,
     // acceptedFiles is an empty array.
     if (acceptedFiles.length < 1) {
-      setStatusText('File type not accepted or too many, try again!');
+      setStatus(FileUploadStatus.FileRejected);
+      setSelectedFile('');
       return;
     }
     setIsUploading(true);
     setIsUploadFinished(false);
     setIsUploadingTimeout(false);
-    setStatusText(`File "${acceptedFiles[0].name}" selected`);
+    setStatus(FileUploadStatus.FileAccepted);
+    setSelectedFile(acceptedFiles[0].name);
     fieldApi.setError('Uploading in progress');
     saveRequest.saveFile({
       file: acceptedFiles[0],
@@ -146,7 +175,7 @@ export const FileUpload: CT<FileUploadProps> = ({ fieldApi, ui = {}, accept }: F
         {isUploadTimeout && <UploadTimeout />}
         {isUploading && <Uploading />}
         {isUploadFinished && <UploadFinished />}
-        <UploadStatus statusText={statusText} />
+        <UploadStatus status={status} selectedFile={selectedFile} />
       </Wrapper>
     </MasterWrapper>
   );
