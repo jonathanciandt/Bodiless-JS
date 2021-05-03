@@ -30,6 +30,13 @@ export type ExtraLinkOptions = {
   instructions?: string,
 };
 
-export type UseLinkOverrides = UseBodilessOverrides<Props, LinkData, ExtraLinkOptions>;
+export type FileUploadOptions = {
+  fileUpload?: {
+    accept?: string | string[]
+  },
+};
 
-export type AsBodilessLink = AsBodiless<Props, LinkData, ExtraLinkOptions>;
+// eslint-disable-next-line max-len
+export type UseLinkOverrides = UseBodilessOverrides<Props, LinkData, ExtraLinkOptions & FileUploadOptions>;
+
+export type AsBodilessLink = AsBodiless<Props, LinkData, ExtraLinkOptions & FileUploadOptions>;

@@ -30,12 +30,14 @@ import {
   withoutProps,
   asToken,
 } from '@bodiless/fclasses';
+import { withFieldApi } from 'informed';
 import DefaultNormalHref from './NormalHref';
 import withGoToLinkButton from './withGoToLinkButton';
 import useEmptyLinkToggle from './useEmptyLinkToggle';
 import {
   LinkData, UseLinkOverrides, Props, ExtraLinkOptions, AsBodilessLink,
 } from './types';
+import { FileUpload as BaseFileUpload } from '../FileUpload';
 
 const DEFAULT_INSTRUCTIONS = `
   Use a fully formed URL only for external links, e.g., https://www.example.com.
@@ -45,6 +47,10 @@ const DEFAULT_INSTRUCTIONS = `
   the site root.  All links will have a trailing slash appended.
 `;
 
+const DEFAULT_ALLOWED_FILE_TYPES = 'application/pdf';
+
+const FileUpload = withFieldApi('href')(BaseFileUpload);
+
 const useLinkOverrides = (useOverrides: UseLinkOverrides = () => ({})): UseLinkOverrides => (
   props => {
     const overrides = useOverrides(props);
@@ -52,7 +58,9 @@ const useLinkOverrides = (useOverrides: UseLinkOverrides = () => ({})): UseLinkO
       submitValueHandler: submitValueHandler$ = identity,
       normalizeHref = (href?: string) => new DefaultNormalHref(href).toString(),
       instructions = DEFAULT_INSTRUCTIONS,
+      fileUpload = {},
     } = overrides;
+    const { accept: fileUploadAccept = DEFAULT_ALLOWED_FILE_TYPES } = fileUpload;
     const submitValueHandler = ({ href }: LinkData) => submitValueHandler$({
       href: normalizeHref(href),
     });
@@ -60,7 +68,7 @@ const useLinkOverrides = (useOverrides: UseLinkOverrides = () => ({})): UseLinkO
       ...overrides,
       normalizeHref,
       submitValueHandler,
-      renderForm: ({ componentProps: { unwrap }, closeForm }) => {
+      renderForm: ({ componentProps: { unwrap, ui }, closeForm }) => {
         const {
           ComponentFormTitle,
           ComponentFormLabel,
@@ -83,6 +91,8 @@ const useLinkOverrides = (useOverrides: UseLinkOverrides = () => ({})): UseLinkO
             <ComponentFormDescription id="description">
               {instructions}
             </ComponentFormDescription>
+            <ComponentFormLabel>File Upload</ComponentFormLabel>
+            <FileUpload ui={ui} accept={fileUploadAccept} />
             {unwrap && (
             <ComponentFormUnwrapButton type="button" onClick={removeLinkHandler}>
               Remove Link

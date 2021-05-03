@@ -17,9 +17,9 @@ import {
   addClasses, removeClasses, asToken, Token,
 } from '@bodiless/fclasses';
 import {
-  asBodilessLink,
   asEditable as asEditableCore,
 } from '@bodiless/components';
+import { asBodilessLink } from '@bodiless/components-ui';
 import {
   asResponsive21By9Embed,
   asResponsive16By9Embed,

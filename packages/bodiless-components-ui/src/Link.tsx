@@ -13,23 +13,19 @@
  */
 
 import flowRight from 'lodash/flowRight';
-import { asBodilessImage as asBaseBodilessImage } from '@bodiless/components';
-import type { AsBodilessImage } from '@bodiless/components';
-import {
-  Img,
-  withoutProps,
-} from '@bodiless/fclasses';
+import { asBodilessLink as asBaseBodilessLink } from '@bodiless/components';
+import type { AsBodilessLink } from '@bodiless/components';
+import { withoutProps } from '@bodiless/fclasses';
 import { fileUploadUI, withUI } from './FileUpload';
 
-const asBodilessImage:AsBodilessImage = (nodeKey, defaultData, useOverrides) => flowRight(
+/* eslint-disable import/prefer-default-export */
+
+const asBodilessLink: AsBodilessLink = (nodeKey, defaultData, useOverrides) => flowRight(
   withUI(fileUploadUI),
-  asBaseBodilessImage(nodeKey, defaultData, useOverrides),
+  asBaseBodilessLink(nodeKey, defaultData, useOverrides),
   withoutProps(['ui']),
 );
 
-const Image = asBodilessImage()(Img);
-
-export default Image;
 export {
-  asBodilessImage,
+  asBodilessLink,
 };

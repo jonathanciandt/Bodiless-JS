@@ -18,3 +18,5 @@ export {
   asBodilessImage,
   Image,
 };
+
+export * from './Link';
