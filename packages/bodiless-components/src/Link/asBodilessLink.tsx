@@ -35,9 +35,13 @@ import DefaultNormalHref from './NormalHref';
 import withGoToLinkButton from './withGoToLinkButton';
 import useEmptyLinkToggle from './useEmptyLinkToggle';
 import {
-  LinkData, UseLinkOverrides, Props, ExtraLinkOptions, AsBodilessLink,
+  LinkData,
+  UseLinkOverrides,
+  Props,
+  ExtraLinkOptions,
+  AsBodilessLink,
 } from './types';
-import { FileUpload as BaseFileUpload } from '../FileUpload';
+import { FileUpload as BaseFileUpload, FileUploadProps } from '../FileUpload';
 
 const DEFAULT_INSTRUCTIONS = `
   Use a fully formed URL only for external links, e.g., https://www.example.com.
@@ -49,7 +53,7 @@ const DEFAULT_INSTRUCTIONS = `
 
 const DEFAULT_ALLOWED_FILE_TYPES = 'application/pdf';
 
-const FileUpload = withFieldApi('href')(BaseFileUpload);
+const FileUpload: ComponentType<Omit<FileUploadProps, 'fieldApi'>> = withFieldApi('href')(BaseFileUpload);
 
 const useLinkOverrides = (useOverrides: UseLinkOverrides = () => ({})): UseLinkOverrides => (
   props => {
@@ -68,7 +72,8 @@ const useLinkOverrides = (useOverrides: UseLinkOverrides = () => ({})): UseLinkO
       ...overrides,
       normalizeHref,
       submitValueHandler,
-      renderForm: ({ componentProps: { unwrap, ui }, closeForm }) => {
+      // eslint-disable-next-line max-len
+      renderForm: ({ componentProps: { unwrap, ui: { fileUpload: fileUploadUI } = {} }, closeForm }) => {
         const {
           ComponentFormTitle,
           ComponentFormLabel,
@@ -92,7 +97,7 @@ const useLinkOverrides = (useOverrides: UseLinkOverrides = () => ({})): UseLinkO
               {instructions}
             </ComponentFormDescription>
             <ComponentFormLabel>File Upload</ComponentFormLabel>
-            <FileUpload ui={ui} accept={fileUploadAccept} />
+            <FileUpload ui={fileUploadUI} accept={fileUploadAccept} />
             {unwrap && (
             <ComponentFormUnwrapButton type="button" onClick={removeLinkHandler}>
               Remove Link

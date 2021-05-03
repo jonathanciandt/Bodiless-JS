@@ -62,7 +62,7 @@ const defaultFileUploadUI = {
   UploadStatus: ({ statusText }: UploadStatusProps) => <div>{statusText}</div>,
 };
 
-export const FileUpload = ({ fieldApi, ui = {}, accept }: FileUploadProps) => {
+export const FileUpload: CT<FileUploadProps> = ({ fieldApi, ui = {}, accept }: FileUploadProps) => {
   const [statusText, setStatusText] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [isUploadTimeout, setIsUploadingTimeout] = useState(false);

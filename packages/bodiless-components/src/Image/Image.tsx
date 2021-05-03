@@ -16,7 +16,7 @@ import React, {
   HTMLProps,
   ComponentType,
 } from 'react';
-
+import flow from 'lodash/flow';
 import {
   getUI,
   asBodilessComponent,
@@ -24,7 +24,6 @@ import {
   AsBodiless,
 } from '@bodiless/core';
 import { addProps } from '@bodiless/fclasses';
-
 import { withFieldApi } from 'informed';
 import { FileUpload } from '../FileUpload';
 import type { FileUploadPickerUI } from '../FileUpload';
@@ -42,9 +41,11 @@ export type Data = {
 export type TImagePickerUI = FileUploadPickerUI;
 
 // DropZonePlugin control the upload of file and only saves jpg/png files.
-const DropZonePlugin = addProps({
-  accept: 'image/jpeg, image/png, image/svg+xml, image/gif, image/apng',
-})(FileUpload);
+export const DropZonePlugin = flow(
+  addProps({
+    accept: 'image/jpeg, image/png, image/svg+xml, image/gif, image/apng',
+  }),
+)(FileUpload);
 
 // Type of the props accepted by this component.
 // Exclude the src and alt from the props accepted as we write it.

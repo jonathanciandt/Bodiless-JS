@@ -16,13 +16,19 @@
 import { HTMLProps } from 'react';
 import { AsBodiless, UseBodilessOverrides } from '@bodiless/core';
 import { HrefNormalizer } from './NormalHref';
+import { FileUploadPickerUI } from '../FileUpload';
 
 export type LinkData = {
   href: string;
 };
 
+export type UI = {
+  fileUpload?: FileUploadPickerUI,
+};
+
 export type Props = HTMLProps<HTMLAnchorElement> & {
   unwrap?: () => void,
+  ui?: UI,
 };
 
 export type ExtraLinkOptions = {

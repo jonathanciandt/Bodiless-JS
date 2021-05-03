@@ -141,6 +141,7 @@ export * from './Chameleon/index';
 export * from './Image';
 export * from './List';
 export * from './Link';
+export * from './FileUpload';
 
 export type {
   MetaFormFieldType,
