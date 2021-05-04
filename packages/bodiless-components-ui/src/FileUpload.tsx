@@ -1,5 +1,5 @@
 /**
- * Copyright © 2020 Johnson & Johnson
+ * Copyright © 2021 Johnson & Johnson
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 
 import React, { ComponentType } from 'react';
 import { flowRight } from 'lodash';
-import { FileUploadStatus } from '@bodiless/components';
+import { FileUploadStatus, FileUploadStrings } from '@bodiless/components';
 import type { UploadStatusProps } from '@bodiless/components';
 import type { HOC } from '@bodiless/fclasses';
 import {
@@ -65,18 +65,20 @@ const Input = withForwardedRef()('input');
 
 const UploadArea = () => (
   <div className="bl-font-bold bl-text-base bl-text-center">
-    Drag a file or click here to upload.
+    {`${FileUploadStrings.DragOrClickToUpload}`}
     <MaterialIcon className="bl-w-full" icon="cloud_upload" />
   </div>
 );
 const DragRejected = () => (
-  <div className="bl-text-red">File type not accepted or too many, try again!</div>
+  <div className="bl-text-red">{`${FileUploadStrings.FileRejected}`}</div>
 );
 const UploadTimeout = () => (
-  <div className="bl-text-red">Upload failed, please try again.</div>
+  <div className="bl-text-red">{`${FileUploadStrings.UploadTimeout}`}</div>
 );
 const Uploading = () => <Spinner color="bl-bg-gray-800 bl-my-4" />;
-const UploadFinished = () => <div className="bl-text-center bl-text-lg bl-text-black">Done!</div>;
+const UploadFinished = () => (
+  <div className="bl-text-center bl-text-lg bl-text-black">{`${FileUploadStrings.UploadFinished}`}</div>
+);
 const UploadStatus = ({ status, selectedFile }: UploadStatusProps) => {
   let statusText;
   switch (status) {
@@ -84,7 +86,7 @@ const UploadStatus = ({ status, selectedFile }: UploadStatusProps) => {
       statusText = `File "${selectedFile}" selected`;
       break;
     case FileUploadStatus.FileRejected:
-      statusText = 'File type not accepted or too many, try again!';
+      statusText = FileUploadStrings.FileRejected;
       break;
     default:
       statusText = '';

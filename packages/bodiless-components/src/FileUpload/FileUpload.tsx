@@ -31,6 +31,14 @@ export enum FileUploadStatus {
   FileAccepted,
 }
 
+export enum FileUploadStrings {
+  FileRejected = 'File type not accepted or too many, try again!',
+  DragOrClickToUpload = 'Drag a file or click here to upload.',
+  Uploading = 'Upload is in progress',
+  UploadTimeout = 'Upload failed, please try again.',
+  UploadFinished = 'Done!',
+}
+
 export type UploadStatusProps = HTMLProps<HTMLElement> & {
   status: FileUploadStatus;
   selectedFile?: string;
@@ -66,7 +74,7 @@ const DefaultUploadStatus = ({ status, selectedFile }: UploadStatusProps) => {
       statusText = `File "${selectedFile}" selected`;
       break;
     case FileUploadStatus.FileRejected:
-      statusText = 'File type not accepted or too many, try again!';
+      statusText = FileUploadStrings.FileRejected;
       break;
     default:
       statusText = '';
@@ -80,11 +88,11 @@ const defaultFileUploadUI = {
   MasterWrapper: 'section',
   Wrapper: 'div',
   Input: 'input',
-  UploadArea: () => <div>Drag a file or click here to upload.</div>,
-  Uploading: () => <div>Upload is in progress</div>,
-  DragRejected: () => <div>File type not accepted or too many, try again!</div>,
-  UploadTimeout: () => <div>Upload failed, please try again.</div>,
-  UploadFinished: () => <div>Done!</div>,
+  UploadArea: () => <div>{`${FileUploadStrings.DragOrClickToUpload}`}</div>,
+  Uploading: () => <div>{`${FileUploadStrings.Uploading}`}</div>,
+  DragRejected: () => <div>{`${FileUploadStrings.FileRejected}`}</div>,
+  UploadTimeout: () => <div>{`${FileUploadStrings.UploadTimeout}`}</div>,
+  UploadFinished: () => <div>{`${FileUploadStrings.UploadFinished}`}</div>,
   UploadStatus: DefaultUploadStatus,
 };
 
@@ -128,7 +136,7 @@ export const FileUpload: CT<FileUploadProps> = ({ fieldApi, ui = {}, accept }: F
     setIsUploadingTimeout(false);
     setStatus(FileUploadStatus.FileAccepted);
     setSelectedFile(acceptedFiles[0].name);
-    fieldApi.setError('Uploading in progress');
+    fieldApi.setError(FileUploadStrings.Uploading);
     saveRequest.saveFile({
       file: acceptedFiles[0],
       nodePath: node.path.join('$'),

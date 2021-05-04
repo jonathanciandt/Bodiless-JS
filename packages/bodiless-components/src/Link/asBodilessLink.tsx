@@ -72,8 +72,10 @@ const useLinkOverrides = (useOverrides: UseLinkOverrides = () => ({})): UseLinkO
       ...overrides,
       normalizeHref,
       submitValueHandler,
-      // eslint-disable-next-line max-len
-      renderForm: ({ componentProps: { unwrap, ui: { fileUpload: fileUploadUI } = {} }, closeForm }) => {
+      renderForm: ({
+        componentProps: { unwrap, ui: { fileUpload: fileUploadUI } = {} },
+        closeForm,
+      }) => {
         const {
           ComponentFormTitle,
           ComponentFormLabel,
