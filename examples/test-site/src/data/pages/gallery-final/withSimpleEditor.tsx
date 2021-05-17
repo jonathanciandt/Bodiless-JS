@@ -21,7 +21,8 @@ import {
   Design,
   startWith,
 } from '@bodiless/fclasses';
-import { asBodilessLink, withPlaceholder } from '@bodiless/components';
+import { withPlaceholder } from '@bodiless/components';
+import { asBodilessLink } from '@bodiless/components-ui';
 import { withNodeKey, withChild } from '@bodiless/core';
 
 const asBold = startWith(Strong);

@@ -51,7 +51,10 @@ const DEFAULT_INSTRUCTIONS = `
   the site root.  All links will have a trailing slash appended.
 `;
 
-const DEFAULT_ALLOWED_FILE_TYPES = 'application/pdf';
+const DEFAULT_ALLOWED_FILE_TYPES = [
+  'application/pdf',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+];
 
 const FileUpload: ComponentType<Omit<FileUploadProps, 'fieldApi'>> = withFieldApi('href')(BaseFileUpload);
 

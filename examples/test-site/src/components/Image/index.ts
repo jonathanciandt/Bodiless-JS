@@ -21,12 +21,12 @@ import {
 } from '@bodiless/core';
 import flowRight from 'lodash/flowRight';
 import {
-  asBodilessLink,
   withImagePlaceholder,
   withDefaultImageContent,
   AsBodilessImage,
 } from '@bodiless/components';
 import {
+  asBodilessLink,
   asBodilessImage,
 } from '@bodiless/components-ui';
 import {

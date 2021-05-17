@@ -41,6 +41,8 @@ const isLocalLink = (path: string) => path
   && !path.startsWith('https://')
   && !path.startsWith('//');
 
+const isFile = (path: string) => /\.[0-9a-z]+$/i.test(path);
+
 const asGatsbyLink$:Token<BodilessLinkProps> = Component => {
   const startComponents: Components = {
     GatsbyLink: BaseGatsbyLink,
@@ -52,7 +54,7 @@ const asGatsbyLink$:Token<BodilessLinkProps> = Component => {
       Link,
       GatsbyLink,
     } = components;
-    if (!isLocalLink(href)) return <Link {...rest} href={href} />;
+    if (!isLocalLink(href) || isFile(href)) return <Link {...rest} href={href} />;
     return <GatsbyLink {...rest} to={href} />;
   };
   return designable(startComponents, 'GatsbyLink')(AsGatsbyLink);

@@ -15,10 +15,15 @@
 import flowRight from 'lodash/flowRight';
 import { asBodilessLink as asBaseBodilessLink } from '@bodiless/components';
 import type { AsBodilessLink } from '@bodiless/components';
-import { withoutProps } from '@bodiless/fclasses';
-import { fileUploadUI, withUI } from './FileUpload';
+import { addClasses, withoutProps } from '@bodiless/fclasses';
+import { fileUploadUI as baseFileUploadUi, withUI } from './FileUpload';
 
 /* eslint-disable import/prefer-default-export */
+
+const fileUploadUI = {
+  ...baseFileUploadUi,
+  MasterWrapper: addClasses('bl-max-w-xl-grid-1')(baseFileUploadUi.MasterWrapper),
+};
 
 const asBodilessLink: AsBodilessLink = (nodeKey, defaultData, useOverrides) => flowRight(
   withUI({

@@ -20,6 +20,7 @@ import {
   addProps,
   H1,
   Div,
+  P,
 } from '@bodiless/fclasses';
 import { asLinkInANewTab, FileUploadStatus } from '@bodiless/components';
 import type { UploadStatusProps } from '@bodiless/components';
@@ -36,6 +37,8 @@ const Section = flow(
   addClasses('my-2'),
 )(Div);
 
+const Paragraph = P;
+
 const DefaultLink = flow(
   asEditableLink('default'),
   asLink,
@@ -44,7 +47,11 @@ const DefaultLink = flow(
 const CustomAllowedTypesLink = flow(
   asEditableLink('allowedType', undefined, () => ({
     fileUpload: {
-      accept: 'application/pdf, application/msword',
+      accept: [
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      ],
     },
   })),
   asLink,
@@ -98,15 +105,30 @@ export default (props: any) => (
     <Layout>
       <Title>Link to Downloadable Files Demo Page</Title>
       <Section>
+        <Paragraph>
+          Below is a link that can target a file.
+          To upload a file, open the link context menu and click `Edit`.
+          Then drag or upload a file using File Upload form field.
+        </Paragraph>
         <DefaultLink>Default Link</DefaultLink>
       </Section>
       <Section>
+        <Paragraph>
+          Below is an example in which allowed file types are customized.
+          Allowed file types are `pdf, doc, docx`.
+        </Paragraph>
         <CustomAllowedTypesLink>Custom allowed file types link</CustomAllowedTypesLink>
       </Section>
       <Section>
+        <Paragraph>
+          Below is an example in which form field validation message is customized.
+        </Paragraph>
         <CustomValidationMessageLink>Custom validation message link</CustomValidationMessageLink>
       </Section>
       <Section>
+        <Paragraph>
+          Below is an example in which the link is opened in a new browser tab.
+        </Paragraph>
         <NewTabLink>New tab link</NewTabLink>
       </Section>
     </Layout>

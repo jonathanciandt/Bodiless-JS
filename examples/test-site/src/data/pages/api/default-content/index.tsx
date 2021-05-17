@@ -20,7 +20,7 @@ import {
   asToken,
 } from '@bodiless/fclasses';
 import { withNode, withNodeKey, withDefaultContent } from '@bodiless/core';
-import { asBodilessLink } from '@bodiless/components';
+import { asBodilessLink } from '@bodiless/components-ui';
 import { Page } from '@bodiless/gatsby-theme-bodiless';
 import Layout from '../../../../components/Layout';
 import { asHeader3, asLink } from '../../../../components/Elements.token';

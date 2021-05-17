@@ -31,6 +31,7 @@
     "@bodiless/accordion": "^0.2.1",
     "@bodiless/card": "^0.2.1",
     "@bodiless/components": "^0.2.1",
+    "@bodiless/components-ui": "^0.2.1",
     "@bodiless/core": "^0.2.1",
     "@bodiless/fclasses": "^0.2.1",
     "@bodiless/organisms": "^0.2.1",
