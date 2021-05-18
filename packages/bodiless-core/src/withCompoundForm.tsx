@@ -59,6 +59,24 @@ type FormProps<D> = ContextMenuFormProps & {
 const Context = createContext<SnippetRegister<any>>(() => {});
 const SnippetContext = createContext<MutableRefObject<Snippet<any>[]>|undefined>(undefined);
 
+const Snippets = <D extends object>(props$: FormProps<D>) => {
+  const { snippets: snippets$, ...rest$ } = props$;
+  const renderProps: FormBodyProps<D> = {
+    formState: useFormState(),
+    formApi: useFormApi(),
+    ...rest$,
+  };
+  return (
+    <>
+      {snippets$.map(s => (
+        <Scope scope={s.id} key={s.id}>
+          {s.render({ ...renderProps, scope: s.id })}
+        </Scope>
+      ))}
+    </>
+  );
+};
+
 /**
  * @private
  *
@@ -86,24 +104,6 @@ const Form = <D extends object>(props: FormProps<D>) => {
   );
 
   const formProps = { submitValues, initialValues };
-
-  const Snippets = (props$: FormProps<D>) => {
-    const { snippets: snippets$, ...rest$ } = props$;
-    const renderProps: FormBodyProps<D> = {
-      formState: useFormState(),
-      formApi: useFormApi(),
-      ...rest$,
-    };
-    return (
-      <>
-        {snippets$.map(s => (
-          <Scope scope={s.id} key={s.id}>
-            {s.render({ ...renderProps, scope: s.id })}
-          </Scope>
-        ))}
-      </>
-    );
-  };
 
   return (
     <ContextMenuForm {...rest} {...formProps}>

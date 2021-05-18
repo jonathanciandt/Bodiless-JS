@@ -112,7 +112,8 @@ type UI = { [key: string]: object };
 const withUI = <P extends UI>(ui: UI) => (
   Component: ComponentType<P>,
 ) => ({ ui: uiFromProp, ...rest }: P) => {
-  const ui$ = merge({}, ui, uiFromProp);
+  // disable rerendering on ui prop change
+  const ui$ = React.useMemo(() => merge({}, ui, uiFromProp), []);
   return <Component {...rest as P} ui={ui$} />;
 };
 
