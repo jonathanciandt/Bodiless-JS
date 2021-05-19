@@ -57,7 +57,7 @@ const CustomAllowedTypesLink = flow(
   asLink,
 )(A);
 
-const CUSTOM_FILE_REJECTED_MESSAGE = 'File type is not accepted, the acceptable file types are Word and PDFs';
+const CUSTOM_FILE_REJECTED_MESSAGE = 'File type is not accepted, the acceptable file types are Word (doc/docx) and PDFs';
 
 const CustomUploadStatus = ({ status, selectedFile }: UploadStatusProps) => {
   let statusText;
@@ -84,7 +84,7 @@ const CustomValidationMessageLink = flow(
         DragRejected: flow(
           addClasses('bl-text-red'),
           addProps({
-            children: 'File type is not accepted, the acceptable file types are Word and PDFs',
+            children: CUSTOM_FILE_REJECTED_MESSAGE,
           }),
         )(Div),
         UploadStatus: CustomUploadStatus,

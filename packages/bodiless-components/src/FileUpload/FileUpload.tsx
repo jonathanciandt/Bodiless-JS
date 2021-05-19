@@ -123,10 +123,14 @@ export const FileUpload: CT<FileUploadProps> = ({ fieldApi, ui = {}, accept }: F
     return () => null;
   });
 
-  const onDrop = useCallback(acceptedFiles => {
-    // When files are rejected by the react-dropzone,
-    // acceptedFiles is an empty array.
-    if (acceptedFiles.length < 1) {
+  const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
+    // when no files are accepted by the react-dropzone
+    // when a file is accepted and other files are rejected
+    // then we reject
+    if (
+      acceptedFiles.length < 1
+      || (acceptedFiles.length + rejectedFiles.length) > 1
+    ) {
       setStatus(FileUploadStatus.FileRejected);
       setSelectedFile('');
       return;
