@@ -24,4 +24,3 @@ export type {
   LinkData,
   Props as BodilessLinkProps,
 };
-export * from './tokens';

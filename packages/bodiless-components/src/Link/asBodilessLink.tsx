@@ -143,6 +143,21 @@ const withNormalHref = (
   return WithNormalHref;
 };
 
+const withLinkTarget = (
+  useOverrides: () => ExtraLinkOptions,
+) => (Component : ComponentType<Props>) => {
+  const WithLinkTarget = (props: Props) => {
+    const { target } = useOverrides();
+    return (
+      <Component
+        target={target}
+        {...props}
+      />
+    );
+  };
+  return WithLinkTarget;
+};
+
 /**
  * HOC that can be applied to a link based component to not render the component
  * when the component link data is empty
@@ -164,11 +179,12 @@ const asBodilessLink: AsBodilessLink = (
       // Prevent following the link in edit mode
       withExtendHandler('onClick', () => (e: MouseEvent) => e.preventDefault()),
       addProps({ draggable: false }),
-      withGoToLinkButton(),
+      withGoToLinkButton(useLinkOverrides(useOverrides) as () => ExtraLinkOptions),
     ),
   ),
   withoutProps(['unwrap']),
   withNormalHref(useLinkOverrides(useOverrides) as () => ExtraLinkOptions),
+  withLinkTarget(useLinkOverrides(useOverrides) as () => ExtraLinkOptions),
 );
 
 export default asBodilessLink;

@@ -22,7 +22,7 @@ import {
   Div,
   P,
 } from '@bodiless/fclasses';
-import { asLinkInANewTab, FileUploadStatus } from '@bodiless/components';
+import { FileUploadStatus } from '@bodiless/components';
 import type { UploadStatusProps } from '@bodiless/components';
 import flow from 'lodash/flow';
 
@@ -95,8 +95,9 @@ const CustomValidationMessageLink = flow(
 )(A);
 
 const NewTabLink = flow(
-  asLinkInANewTab,
-  asEditableLink('newTab'),
+  asEditableLink('newTab', undefined, () => ({
+    target: '_blank',
+  })),
   asLink,
 )(A);
 

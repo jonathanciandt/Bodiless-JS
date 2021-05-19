@@ -33,6 +33,7 @@ export type Props = HTMLProps<HTMLAnchorElement> & {
 
 export type ExtraLinkOptions = {
   normalizeHref: HrefNormalizer,
+  target?: string,
   instructions?: string,
 };
 
