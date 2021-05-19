@@ -12,8 +12,9 @@
  * limitations under the License.
  */
 
-import { ifReadOnly } from '@bodiless/core';
+import { ifReadOnly, withMenuOptions } from '@bodiless/core';
 import { asToken, addProps } from '@bodiless/fclasses';
+import { useGoToLinkMenuOptions } from './withGoToLinkButton';
 
 export const asLinkInANewTab = asToken(
   ifReadOnly(
@@ -21,6 +22,11 @@ export const asLinkInANewTab = asToken(
       target: '_blank',
     }),
   ),
+  withMenuOptions({
+    useMenuOptions: () => useGoToLinkMenuOptions({ newTab: true }),
+    name: 'go',
+    peer: true,
+  }),
 );
 
 export const asLinkInTheSameTab = asToken(
@@ -29,4 +35,9 @@ export const asLinkInTheSameTab = asToken(
       target: '_self',
     }),
   ),
+  withMenuOptions({
+    useMenuOptions: () => useGoToLinkMenuOptions({ newTab: false }),
+    name: 'go',
+    peer: true,
+  }),
 );

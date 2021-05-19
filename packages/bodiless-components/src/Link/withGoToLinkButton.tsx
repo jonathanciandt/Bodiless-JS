@@ -20,7 +20,14 @@ import {
 
 import type { LinkData } from './types';
 
-const useMenuOptions = () => {
+type GoToLinkMenuOptionsSettings = {
+  /**
+   * whether the 'Go' menu option should open the link in a new tab. Defaults false.
+   */
+  newTab?: boolean,
+};
+
+const useMenuOptions = ({ newTab } : GoToLinkMenuOptionsSettings) => {
   const { node } = useNode<LinkData>();
   let empty = true;
   if (node.data && node.data.href) {
@@ -35,7 +42,11 @@ const useMenuOptions = () => {
       name: 'go',
       isDisabled: empty,
       handler: () => {
-        if (!empty) {
+        if (empty) return;
+        if (newTab) {
+          // @ts-ignore
+          window.open(node.data.href);
+        } else {
           // @ts-ignore
           window.location = node.data.href;
         }
@@ -50,3 +61,6 @@ const useMenuOptions = () => {
 const withGoToLinkButton = () => withMenuOptions({ useMenuOptions, name: 'go', peer: true });
 
 export default withGoToLinkButton;
+export {
+  useMenuOptions as useGoToLinkMenuOptions,
+};

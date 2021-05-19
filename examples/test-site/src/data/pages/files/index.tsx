@@ -95,9 +95,9 @@ const CustomValidationMessageLink = flow(
 )(A);
 
 const NewTabLink = flow(
+  asLinkInANewTab,
   asEditableLink('newTab'),
   asLink,
-  asLinkInANewTab,
 )(A);
 
 export default (props: any) => (
