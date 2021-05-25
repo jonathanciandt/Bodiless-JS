@@ -52,7 +52,11 @@ const DEFAULT_INSTRUCTIONS = `
 `;
 
 const DEFAULT_ALLOWED_FILE_TYPES = [
+  // pdf
   'application/pdf',
+  // doc
+  'application/msword',
+  // docx
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 ];
 

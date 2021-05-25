@@ -48,9 +48,16 @@ const CustomAllowedTypesLink = flow(
   asEditableLink('allowedType', undefined, () => ({
     fileUpload: {
       accept: [
+        // pdf
         'application/pdf',
+        // doc
         'application/msword',
+        // docx
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        // xls
+        'application/vnd.ms-excel',
+        // xlsx
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       ],
     },
   })),
@@ -116,7 +123,7 @@ export default (props: any) => (
       <Section>
         <Paragraph>
           Below is an example in which allowed file types are customized.
-          Allowed file types are `pdf, doc, docx`.
+          Allowed file types are `pdf, doc, docx, xls, xlsx`.
         </Paragraph>
         <CustomAllowedTypesLink>Custom allowed file types link</CustomAllowedTypesLink>
       </Section>
