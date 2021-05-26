@@ -1,0 +1,67 @@
+{
+  "items": [
+    {
+      "uuid": "e100c3d0-be10-11eb-b88a-cb51578764d2",
+      "wrapperProps": {
+        "className": "w-full"
+      },
+      "type": "EditorBasic"
+    },
+    {
+      "uuid": "f0903970-be10-11eb-b88a-cb51578764d2",
+      "wrapperProps": {
+        "className": "w-full"
+      },
+      "type": "EditorFullFeatured"
+    },
+    {
+      "uuid": "38814710-be11-11eb-b88a-cb51578764d2",
+      "wrapperProps": {
+        "className": "w-full"
+      },
+      "type": "LandscapeLinkableImage"
+    },
+    {
+      "uuid": "4127c920-be11-11eb-b88a-cb51578764d2",
+      "wrapperProps": {
+        "className": "w-full"
+      },
+      "type": "SquareLinkableImage"
+    },
+    {
+      "uuid": "4b5ba1f0-be11-11eb-b88a-cb51578764d2",
+      "wrapperProps": {
+        "className": "w-full"
+      },
+      "type": "CardHorizontalWithTitleBodyWithCTA"
+    },
+    {
+      "uuid": "5c95e160-be11-11eb-b88a-cb51578764d2",
+      "wrapperProps": {
+        "className": "w-full"
+      },
+      "type": "GivingBackToCommunity"
+    },
+    {
+      "uuid": "6e10d350-be11-11eb-b88a-cb51578764d2",
+      "wrapperProps": {
+        "className": "w-full"
+      },
+      "type": "ChameleonList"
+    },
+    {
+      "uuid": "7ba674c0-be11-11eb-b88a-cb51578764d2",
+      "wrapperProps": {
+        "className": "w-full"
+      },
+      "type": "Carousel"
+    },
+    {
+      "uuid": "7e1e5290-be11-11eb-b88a-cb51578764d2",
+      "wrapperProps": {
+        "className": "w-full"
+      },
+      "type": "Carousel"
+    }
+  ]
+}

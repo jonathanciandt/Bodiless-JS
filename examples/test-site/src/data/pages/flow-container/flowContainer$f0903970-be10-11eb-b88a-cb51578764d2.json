@@ -1,0 +1,27 @@
+[
+  {
+    "type": "paragraph",
+    "children": [
+      {
+        "text": ""
+      },
+      {
+        "data": {
+          "openModal": true,
+          "slatenode": {
+            "href": "/files/pages/flow-container/660ba46a52611f216d608901e16d531b/1%20-%20Copy.doc"
+          }
+        },
+        "type": "Link",
+        "children": [
+          {
+            "text": "Full Rich Text"
+          }
+        ]
+      },
+      {
+        "text": ""
+      }
+    ]
+  }
+]
