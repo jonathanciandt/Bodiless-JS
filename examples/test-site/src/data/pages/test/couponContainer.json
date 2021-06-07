@@ -1,0 +1,18 @@
+{
+  "items": [
+    {
+      "uuid": "1d7c68d0-c791-11eb-831e-a9dff043a445",
+      "wrapperProps": {
+        "className": "w-full"
+      },
+      "type": "Coupon"
+    },
+    {
+      "uuid": "a5109760-c793-11eb-9f76-535f5814c8af",
+      "wrapperProps": {
+        "className": "w-full"
+      },
+      "type": "Coupon"
+    }
+  ]
+}
