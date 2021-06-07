@@ -16,14 +16,20 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import { Page } from '@bodiless/gatsby-theme-bodiless';
 import { flow } from 'lodash';
-import { addClasses, withDesign, replaceWith, asToken, addProps } from '@bodiless/fclasses';
+import {
+  addClasses,
+  withDesign,
+  replaceWith,
+  asToken,
+  addProps,
+} from '@bodiless/fclasses';
 import { FlowContainer } from '@bodiless/layouts-ui';
 import { withTitle } from '@bodiless/layouts';
+import { asEditable } from '@bodiless/components';
 
 import Layout from '../../../components/Layout';
 import Coupon from '../../../components/Coupon';
 import CouponHeader from '../../../components/Coupon/CouponHeader';
-import { asEditable } from '@bodiless/components';
 
 const asImageCoupon = asToken(
   withDesign({
@@ -33,7 +39,7 @@ const asImageCoupon = asToken(
     CouponImage: flow(
       addClasses('mx-auto'),
     ),
-  })
+  }),
 );
 
 const asBasicCoupon = asToken(
@@ -43,17 +49,17 @@ const asBasicCoupon = asToken(
     ),
     Header: flow(
       addClasses('font-bold text-base'),
-      asEditable('title', 'My Title')
+      asEditable('title', 'My Title'),
     ),
     Description: flow(
       addClasses('text-base'),
-    )
-  })
+    ),
+  }),
 );
 
 const BasicCoupon = flow(
   asBasicCoupon,
-  asImageCoupon
+  asImageCoupon,
 )(Coupon);
 
 const couponDesign = {
@@ -61,7 +67,7 @@ const couponDesign = {
     replaceWith(BasicCoupon),
     withTitle('Add New Coupon'),
   ),
-}
+};
 
 const asCouponHeader = withDesign({
   Wrapper: flow(
@@ -69,27 +75,27 @@ const asCouponHeader = withDesign({
   ),
   Title: flow(
     addClasses('font-bold text-2xl'),
-    asEditable('couponsTitle', 'Coupons')
+    asEditable('couponsTitle', 'Coupons'),
   ),
   Link: flow(
     addClasses('font-bold text-sm text-teal-800 border-solid border-b-2 border-teal-800 leading-none'),
     addProps({
-      href: "https://www.justblink.com/products",
-      target: "_blank",
-      title: "How It Works"
-    })
+      href: 'https://www.justblink.com/products',
+      target: '_blank',
+      title: 'How It Works',
+    }),
   ),
-})
+});
 
 const BasicHeader = asCouponHeader(CouponHeader);
 
 export default props => (
   <Page {...props}>
     <Layout>
-        <div>
-          <BasicHeader />
-          <FlowContainer nodeKey="couponContainer" design={couponDesign} />
-        </div>
+      <div>
+        <BasicHeader />
+        <FlowContainer nodeKey="couponContainer" design={couponDesign} />
+      </div>
     </Layout>
   </Page>
 );
