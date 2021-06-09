@@ -32,7 +32,7 @@ const CouponResult: FC<Props> = ({ components }) => {
     TotalLabel,
     TotalValue,
     TotalWrapper,
-    Wrapper
+    Wrapper,
   } = components;
 
   return (
