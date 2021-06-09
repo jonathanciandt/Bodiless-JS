@@ -33,7 +33,7 @@ const asCouponBottom = flow(
     Description: flow(
       addClasses('text-base'),
     ),
-  })
+  }),
 );
 
 const CustomBody = asCouponBottom(CouponBottom);
@@ -53,7 +53,7 @@ const couponComponentsStart:CouponComponents = {
   Header: Div,
   ImageWrapper: Div,
   Wrapper: Div,
-  CouponBody: CustomBody
+  CouponBody: CustomBody,
 };
 
 type Props = DesignableComponentsProps<CouponComponents> & { };

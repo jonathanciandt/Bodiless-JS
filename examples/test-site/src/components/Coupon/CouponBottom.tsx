@@ -24,7 +24,12 @@ const couponComponentsStart:CouponComponents = {
 type Props = DesignableComponentsProps<CouponComponents> & { };
 
 const CouponBottom: FC<Props> = ({ components }) => {
-  const { Content, Description, Header, Wrapper } = components;
+  const {
+    Content,
+    Description,
+    Header,
+    Wrapper
+  } = components;
 
   return (
     <Wrapper>

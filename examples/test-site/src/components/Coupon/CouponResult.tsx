@@ -2,7 +2,6 @@ import React, { FC, ComponentType } from 'react';
 import {
   StylableProps,
   DesignableComponentsProps,
-  A,
   Button,
   H2,
   Div,
@@ -14,7 +13,7 @@ export type CouponComponents = {
   TotalWrapper: ComponentType<StylableProps>,
   TotalLabel: ComponentType<StylableProps>,
   TotalValue: ComponentType<StylableProps>,
-  Wrapper: ComponentType<StylableProps>
+  Wrapper: ComponentType<StylableProps>,
 };
 
 const couponComponentsStart:CouponComponents = {
@@ -22,13 +21,19 @@ const couponComponentsStart:CouponComponents = {
   TotalWrapper: H2,
   TotalLabel: Div,
   TotalValue: Div,
-  Wrapper: Div
+  Wrapper: Div,
 };
 
 type Props = DesignableComponentsProps<CouponComponents> & { };
 
 const CouponResult: FC<Props> = ({ components }) => {
-  const { DownloadBtn, TotalLabel, TotalValue, TotalWrapper, Wrapper } = components;
+  const {
+    DownloadBtn,
+    TotalLabel,
+    TotalValue,
+    TotalWrapper,
+    Wrapper
+  } = components;
 
   return (
     <Wrapper>

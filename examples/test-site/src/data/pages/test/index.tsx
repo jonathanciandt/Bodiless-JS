@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-import React, { ComponentType } from 'react';
+import React from 'react';
 import { graphql } from 'gatsby';
 import { Page } from '@bodiless/gatsby-theme-bodiless';
 import { flow } from 'lodash';
@@ -105,7 +105,7 @@ const asCouponResult = withDesign({
   ),
   TotalValue: flow(
     asTotalDefaultConfigs,
-  )
+  ),
 });
 
 const BasicResult = asCouponResult(CouponResult);
