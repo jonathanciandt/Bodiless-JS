@@ -6,13 +6,37 @@ import {
   P,
   Img,
   designable,
+  withDesign,
+  addClasses,
 } from '@bodiless/fclasses';
 import { asBodilessImage } from '@bodiless/components-ui';
 import { flow } from 'lodash';
+import { asEditable } from '@bodiless/components';
+import CouponBottom from './CouponBottom';
 
 const Image = flow(
   asBodilessImage('image'),
 )(Img);
+
+const asCouponBottom = flow(
+  withDesign({
+    Wrapper: flow(
+      addClasses('flex items-center pt-3 pb-12 px-6'),
+    ),
+    Content: flow(
+      addClasses('pl-6'),
+    ),
+    Header: flow(
+      addClasses('font-bold text-base text-teal-800 mb-1'),
+      asEditable('title', 'My Title'),
+    ),
+    Description: flow(
+      addClasses('text-base'),
+    ),
+  })
+);
+
+const CustomBody = asCouponBottom(CouponBottom);
 
 export type CouponComponents = {
   CouponImage: ComponentType<StylableProps>,
@@ -20,6 +44,7 @@ export type CouponComponents = {
   Header: ComponentType<StylableProps>,
   ImageWrapper: ComponentType<StylableProps>,
   Wrapper: ComponentType<StylableProps>,
+  CouponBody: ComponentType<StylableProps>,
 };
 
 const couponComponentsStart:CouponComponents = {
@@ -28,6 +53,7 @@ const couponComponentsStart:CouponComponents = {
   Header: Div,
   ImageWrapper: Div,
   Wrapper: Div,
+  CouponBody: CustomBody
 };
 
 type Props = DesignableComponentsProps<CouponComponents> & { };
@@ -35,10 +61,9 @@ type Props = DesignableComponentsProps<CouponComponents> & { };
 const Coupon: FC<Props> = ({ components }) => {
   const {
     CouponImage,
-    Description,
-    Header,
     ImageWrapper,
     Wrapper,
+    CouponBody,
   } = components;
 
   return (
@@ -46,8 +71,7 @@ const Coupon: FC<Props> = ({ components }) => {
       <ImageWrapper>
         <CouponImage />
       </ImageWrapper>
-      <Header>Save $0.00</Header>
-      <Description>My Default Description</Description>
+      <CouponBody />
     </Wrapper>
   );
 };

@@ -414,6 +414,9 @@ module.exports = mergeWithBodilessConfigs({
       outline: {
         black: 'black auto 1px',
       },
+      height: {
+        '120px': '120px',
+      },
     },
 
     /*
@@ -431,7 +434,9 @@ module.exports = mergeWithBodilessConfigs({
     |
     */
 
-    // height: {},
+    // height: {
+    //   '120px': '120px',
+    // },
 
     /*
     |---------------------------------------------------------------------------

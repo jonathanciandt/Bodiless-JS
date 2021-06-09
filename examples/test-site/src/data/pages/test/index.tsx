@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-import React from 'react';
+import React, { ComponentType } from 'react';
 import { graphql } from 'gatsby';
 import { Page } from '@bodiless/gatsby-theme-bodiless';
 import { flow } from 'lodash';
@@ -22,6 +22,7 @@ import {
   replaceWith,
   asToken,
   addProps,
+  Div,
 } from '@bodiless/fclasses';
 import { FlowContainer } from '@bodiless/layouts-ui';
 import { withTitle } from '@bodiless/layouts';
@@ -30,6 +31,11 @@ import { asEditable } from '@bodiless/components';
 import Layout from '../../../components/Layout';
 import Coupon from '../../../components/Coupon';
 import CouponHeader from '../../../components/Coupon/CouponHeader';
+import CouponResult from '../../../components/Coupon/CouponResult';
+
+const CouponsWrapper = flow(
+  addClasses('w-full md:w-4/12'),
+)(Div);
 
 const asImageCoupon = asToken(
   withDesign({
@@ -37,7 +43,7 @@ const asImageCoupon = asToken(
       addClasses('bg-teal-100'),
     ),
     CouponImage: flow(
-      addClasses('mx-auto'),
+      addClasses('mx-auto h-120px'),
     ),
   }),
 );
@@ -45,14 +51,7 @@ const asImageCoupon = asToken(
 const asBasicCoupon = asToken(
   withDesign({
     Wrapper: flow(
-      addClasses('border-solid border border-gray-500 rounded-lg'),
-    ),
-    Header: flow(
-      addClasses('font-bold text-base'),
-      asEditable('title', 'My Title'),
-    ),
-    Description: flow(
-      addClasses('text-base'),
+      addClasses('border-solid border border-gray-500 rounded-lg overflow-hidden mb-3'),
     ),
   }),
 );
@@ -71,7 +70,7 @@ const couponDesign = {
 
 const asCouponHeader = withDesign({
   Wrapper: flow(
-    addClasses('flex items-center justify-between'),
+    addClasses('flex items-center justify-between mb-2'),
   ),
   Title: flow(
     addClasses('font-bold text-2xl'),
@@ -89,13 +88,36 @@ const asCouponHeader = withDesign({
 
 const BasicHeader = asCouponHeader(CouponHeader);
 
+const asTotalDefaultConfigs = addClasses('font-bold text-teal-800 text-sm');
+
+const asCouponResult = withDesign({
+  Wrapper: flow(
+    addClasses('flex items-center justify-between mt-2 mb-8'),
+  ),
+  DownloadBtn: flow(
+    addClasses('border-solid border-2 border-teal-700 text-teal-700 font-bold text-sm flex items-center py-2 px-7 justify-center rounded-full bg-white shadow-md'),
+  ),
+  TotalWrapper: flow(
+    addClasses('text-right'),
+  ),
+  TotalLabel: flow(
+    asTotalDefaultConfigs,
+  ),
+  TotalValue: flow(
+    asTotalDefaultConfigs,
+  )
+});
+
+const BasicResult = asCouponResult(CouponResult);
+
 export default props => (
   <Page {...props}>
     <Layout>
-      <div>
+      <CouponsWrapper>
         <BasicHeader />
         <FlowContainer nodeKey="couponContainer" design={couponDesign} />
-      </div>
+        <BasicResult />
+      </CouponsWrapper>
     </Layout>
   </Page>
 );
