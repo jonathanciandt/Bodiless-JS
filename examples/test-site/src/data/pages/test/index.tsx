@@ -12,56 +12,14 @@
  * limitations under the License.
  */
 
-import React, { FC } from 'react';
+import React from 'react';
 import { graphql } from 'gatsby';
 import { Page } from '@bodiless/gatsby-theme-bodiless';
-import { flow } from 'lodash';
-import {
-  addClasses,
-  replaceWith,
-  asToken,
-  Div,
-  withDesign,
-  addProps,
-} from '@bodiless/fclasses';
-import { FlowContainer } from '@bodiless/layouts-ui';
-import { withTitle } from '@bodiless/layouts';
+import { asToken } from '@bodiless/fclasses';
 
 import Layout from '../../../components/Layout';
-import Coupon from '../../../components/Coupon';
-import CouponHeader from '../../../components/Coupon/CouponHeader';
-import CouponResult from '../../../components/Coupon/CouponResult';
 
 import Coupons from './Coupons';
-
-import {
-  asImageCoupon,
-  asBasicCoupon,
-  asCouponHeader,
-  asCouponResult,
-  asChildrenModifier
-} from './token';
-
-// const CouponsWrapper = flow(
-//   addClasses('w-full md:w-4/12'),
-// )(Div);
-
-// const BasicCoupon = flow(
-//   asBasicCoupon,
-//   asImageCoupon,
-// )(Coupon);
-
-// const couponDesign = {
-//   Coupon: asToken(
-//     replaceWith(BasicCoupon),
-//     withTitle('Add New Coupon'),
-//     asChildrenModifier
-//   ),
-// };
-
-// const BasicHeader = asCouponHeader(CouponHeader);
-
-// const BasicResult = asCouponResult(CouponResult);
 
 const SimpleCoupons = asToken()(Coupons);
 
@@ -69,11 +27,6 @@ export default props => (
   <Page {...props}>
     <Layout>
       <SimpleCoupons />
-      {/* <CouponsWrapper>
-        <BasicHeader />
-        <FlowContainer nodeKey="couponContainer" design={couponDesign} />
-        <BasicResult />
-      </CouponsWrapper> */}
     </Layout>
   </Page>
 );

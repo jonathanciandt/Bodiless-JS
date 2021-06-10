@@ -10,6 +10,8 @@ import {
 } from '@bodiless/fclasses';
 import { flow } from 'lodash';
 
+import { withTitle } from '@bodiless/layouts';
+import { FlowContainer } from '@bodiless/layouts-ui';
 import Coupon from '../../../components/Coupon';
 import CouponHeader from '../../../components/Coupon/CouponHeader';
 import CouponResult from '../../../components/Coupon/CouponResult';
@@ -19,11 +21,8 @@ import {
   asBasicCoupon,
   asCouponHeader,
   asCouponResult,
-  asChildrenModifier
+  asChildrenModifier,
 } from './token';
-
-import { withTitle } from '@bodiless/layouts';
-import { FlowContainer } from '@bodiless/layouts-ui';
 
 const Wrapper = flow(
   addClasses('w-full md:w-4/12'),
@@ -42,7 +41,7 @@ const couponDesign = {
   Coupon: asToken(
     replaceWith(BasicCoupon),
     withTitle('Add New Coupon'),
-    asChildrenModifier
+    asChildrenModifier,
   ),
 };
 
@@ -72,7 +71,7 @@ const Coupons: FC<Props> = ({ components }) => {
   return (
     <Wrapper>
       <Header />
-        <FlowContainer nodeKey="couponContainer" design={couponDesign} />
+      <FlowContainer nodeKey="couponContainer" design={couponDesign} />
       <Result />
     </Wrapper>
   );
