@@ -28,7 +28,7 @@ const CouponBottom: FC<Props> = ({ components }) => {
     Content,
     Description,
     Header,
-    Wrapper
+    Wrapper,
   } = components;
 
   return (

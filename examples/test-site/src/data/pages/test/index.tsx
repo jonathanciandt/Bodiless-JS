@@ -12,112 +12,68 @@
  * limitations under the License.
  */
 
-import React from 'react';
+import React, { FC } from 'react';
 import { graphql } from 'gatsby';
 import { Page } from '@bodiless/gatsby-theme-bodiless';
 import { flow } from 'lodash';
 import {
   addClasses,
-  withDesign,
   replaceWith,
   asToken,
-  addProps,
   Div,
+  withDesign,
+  addProps,
 } from '@bodiless/fclasses';
 import { FlowContainer } from '@bodiless/layouts-ui';
 import { withTitle } from '@bodiless/layouts';
-import { asEditable } from '@bodiless/components';
 
 import Layout from '../../../components/Layout';
 import Coupon from '../../../components/Coupon';
 import CouponHeader from '../../../components/Coupon/CouponHeader';
 import CouponResult from '../../../components/Coupon/CouponResult';
 
-const CouponsWrapper = flow(
-  addClasses('w-full md:w-4/12'),
-)(Div);
+import Coupons from './Coupons';
 
-const asImageCoupon = asToken(
-  withDesign({
-    ImageWrapper: flow(
-      addClasses('bg-teal-100'),
-    ),
-    CouponImage: flow(
-      addClasses('mx-auto h-120px'),
-    ),
-  }),
-);
-
-const asBasicCoupon = asToken(
-  withDesign({
-    Wrapper: flow(
-      addClasses('border-solid border border-gray-500 rounded-lg overflow-hidden mb-3'),
-    ),
-  }),
-);
-
-const BasicCoupon = flow(
-  asBasicCoupon,
+import {
   asImageCoupon,
-)(Coupon);
+  asBasicCoupon,
+  asCouponHeader,
+  asCouponResult,
+  asChildrenModifier
+} from './token';
 
-const couponDesign = {
-  Coupon: asToken(
-    replaceWith(BasicCoupon),
-    withTitle('Add New Coupon'),
-  ),
-};
+// const CouponsWrapper = flow(
+//   addClasses('w-full md:w-4/12'),
+// )(Div);
 
-const asCouponHeader = withDesign({
-  Wrapper: flow(
-    addClasses('flex items-center justify-between mb-2'),
-  ),
-  Title: flow(
-    addClasses('font-bold text-2xl'),
-    asEditable('couponsTitle', 'Coupons'),
-  ),
-  Link: flow(
-    addClasses('font-bold text-sm text-teal-800 border-solid border-b-2 border-teal-800 leading-none'),
-    addProps({
-      href: 'https://www.justblink.com/products',
-      target: '_blank',
-      title: 'How It Works',
-    }),
-  ),
-});
+// const BasicCoupon = flow(
+//   asBasicCoupon,
+//   asImageCoupon,
+// )(Coupon);
 
-const BasicHeader = asCouponHeader(CouponHeader);
+// const couponDesign = {
+//   Coupon: asToken(
+//     replaceWith(BasicCoupon),
+//     withTitle('Add New Coupon'),
+//     asChildrenModifier
+//   ),
+// };
 
-const asTotalDefaultConfigs = addClasses('font-bold text-teal-800 text-sm');
+// const BasicHeader = asCouponHeader(CouponHeader);
 
-const asCouponResult = withDesign({
-  Wrapper: flow(
-    addClasses('flex items-center justify-between mt-2 mb-8'),
-  ),
-  DownloadBtn: flow(
-    addClasses('border-solid border-2 border-teal-700 text-teal-700 font-bold text-sm flex items-center py-2 px-7 justify-center rounded-full bg-white shadow-md'),
-  ),
-  TotalWrapper: flow(
-    addClasses('text-right'),
-  ),
-  TotalLabel: flow(
-    asTotalDefaultConfigs,
-  ),
-  TotalValue: flow(
-    asTotalDefaultConfigs,
-  ),
-});
+// const BasicResult = asCouponResult(CouponResult);
 
-const BasicResult = asCouponResult(CouponResult);
+const SimpleCoupons = asToken()(Coupons);
 
 export default props => (
   <Page {...props}>
     <Layout>
-      <CouponsWrapper>
+      <SimpleCoupons />
+      {/* <CouponsWrapper>
         <BasicHeader />
         <FlowContainer nodeKey="couponContainer" design={couponDesign} />
         <BasicResult />
-      </CouponsWrapper>
+      </CouponsWrapper> */}
     </Layout>
   </Page>
 );
