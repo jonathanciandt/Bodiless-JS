@@ -65,7 +65,6 @@ const Coupons: FC<Props> = ({ components }) => {
   const {
     Result,
     Header,
-    Wrapper,
   } = components;
 
   return (

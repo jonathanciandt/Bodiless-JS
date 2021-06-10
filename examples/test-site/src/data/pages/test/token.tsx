@@ -1,6 +1,8 @@
-import { asToken, withDesign, addClasses, addProps } from "@bodiless/fclasses";
-import { flow } from "lodash";
-import { asEditable } from "@bodiless/components";
+import {
+  asToken, withDesign, addClasses, addProps,
+} from '@bodiless/fclasses';
+import { flow } from 'lodash';
+import { asEditable } from '@bodiless/components';
 
 const asImageCoupon = asToken(
   withDesign({
@@ -68,16 +70,16 @@ const asChildrenModifier = withDesign({
   CouponBody: asToken(
     withDesign({
       Description: flow(
-        addClasses('my-extra-class-without-behavior')
-      )
-    })
-  )
-})
+        addClasses('my-extra-class-without-behavior'),
+      ),
+    }),
+  ),
+});
 
 export {
   asImageCoupon,
   asBasicCoupon,
   asCouponHeader,
   asCouponResult,
-  asChildrenModifier
-}
+  asChildrenModifier,
+};
