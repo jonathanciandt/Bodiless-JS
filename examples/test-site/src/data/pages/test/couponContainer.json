@@ -13,6 +13,13 @@
         "className": "w-full"
       },
       "type": "Coupon"
+    },
+    {
+      "uuid": "977c96f0-ce12-11eb-9ef6-d9d0f4e36275",
+      "wrapperProps": {
+        "className": "w-full"
+      },
+      "type": "Coupon"
     }
   ]
 }

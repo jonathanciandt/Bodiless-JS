@@ -1,4 +1,4 @@
-import React, { FC, ComponentType } from 'react';
+import React, { useContext, FC, ComponentType } from 'react';
 import {
   StylableProps,
   DesignableComponentsProps,
@@ -6,6 +6,7 @@ import {
   designable,
   asToken,
 } from '@bodiless/fclasses';
+import { TestContext } from '../../data/pages/test/index';
 
 export type CouponComponents = {
   Description: ComponentType<StylableProps>,
@@ -31,10 +32,21 @@ const CouponBottom: FC<Props> = ({ components }) => {
     Wrapper,
   } = components;
 
+  /* TODO: Remove all the context logic from here.
+  It needs a specific place to work with ContextAPI. */
+  const { setValues } = useContext(TestContext);
+
+  const toggleValues = ({ target }) => {
+    const isChecked = target?.checked;
+    const parsedTargetValue = parseFloat(target.value);
+
+    setValues(({ couponsTotal }) => ({ couponsTotal: isChecked ? couponsTotal += parsedTargetValue : couponsTotal -= parsedTargetValue }));
+  };
+
   return (
     <Wrapper>
       <label>
-        <input type="checkbox" />
+        <input type="checkbox" onChange={(e) => toggleValues(e)} value="1" />
       </label>
       <Content>
         <Header>Save $0.00</Header>

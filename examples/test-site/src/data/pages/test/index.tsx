@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-import React from 'react';
+import React, { FC, useState } from 'react';
 import { graphql } from 'gatsby';
 import { Page } from '@bodiless/gatsby-theme-bodiless';
 import { asToken } from '@bodiless/fclasses';
@@ -23,10 +23,40 @@ import Coupons from './Coupons';
 
 const SimpleCoupons = asToken()(Coupons);
 
+interface ProviderInterface {
+  values: TestInterface,
+  setValues: (...args: any) => any
+}
+
+const initialValues:ProviderInterface = {
+  values: {
+    couponsTotal: 0,
+  },
+  setValues: () => {},
+};
+
+interface TestInterface {
+  couponsTotal: number,
+}
+
+export const TestContext = React.createContext<ProviderInterface>(initialValues);
+
+const TestProvider: FC = ({ children }) => {
+  const [values, setValues] = useState(initialValues.values);
+
+  return (
+    <TestContext.Provider value={{ values, setValues }}>
+      {children}
+    </TestContext.Provider>
+  );
+};
+
 export default props => (
   <Page {...props}>
     <Layout>
-      <SimpleCoupons />
+      <TestProvider>
+        <SimpleCoupons />
+      </TestProvider>
     </Layout>
   </Page>
 );

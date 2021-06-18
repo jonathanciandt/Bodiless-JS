@@ -1,4 +1,4 @@
-import React, { FC, ComponentType } from 'react';
+import React, { FC, ComponentType, useContext } from 'react';
 import {
   StylableProps,
   DesignableComponentsProps,
@@ -7,6 +7,7 @@ import {
   Div,
   designable,
 } from '@bodiless/fclasses';
+import { TestContext } from '../../data/pages/test/index';
 
 export type CouponComponents = {
   DownloadBtn: ComponentType<StylableProps>,
@@ -35,12 +36,19 @@ const CouponResult: FC<Props> = ({ components }) => {
     Wrapper,
   } = components;
 
+  const { values } = useContext(TestContext);
+
+  const { couponsTotal = 0 } = values;
+
   return (
     <Wrapper>
       <DownloadBtn>Download Coupons</DownloadBtn>
       <TotalWrapper>
         <TotalLabel>Total Savings</TotalLabel>
-        <TotalValue>$0.00</TotalValue>
+        <TotalValue>
+          $
+          {couponsTotal}
+        </TotalValue>
       </TotalWrapper>
     </Wrapper>
   );
