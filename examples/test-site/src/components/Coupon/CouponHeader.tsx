@@ -1,4 +1,4 @@
-import React, { FC, ComponentType } from 'react';
+import React, { FC, ComponentType, HTMLProps } from 'react';
 import {
   StylableProps,
   DesignableComponentsProps,
@@ -9,7 +9,7 @@ import {
 } from '@bodiless/fclasses';
 
 export type CouponComponents = {
-  Link: ComponentType<StylableProps>,
+  Link: ComponentType<StylableProps & HTMLProps<HTMLAnchorElement>>,
   Title: ComponentType<StylableProps>,
   Wrapper: ComponentType<StylableProps>
 };
@@ -28,7 +28,7 @@ const CouponHeader: FC<Props> = ({ components }) => {
   return (
     <Wrapper>
       <Title>Coupons</Title>
-      <Link>How It Works</Link>
+      <Link href="/">How It Works</Link>
     </Wrapper>
   );
 };
